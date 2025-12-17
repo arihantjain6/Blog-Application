@@ -7,8 +7,11 @@ import { useConvexAuth } from "convex/react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
 export default function Navbar() {
     const { isAuthenticated, isLoading } = useConvexAuth(); 
+    const router = useRouter();
     return (
         <nav className="flex justify-between w-full py-5">
             <div className="flex items-center gap-8">
@@ -31,6 +34,7 @@ export default function Navbar() {
                     fetchOptions: {
                         onSuccess: () => {
                             toast.success("Logged out successfully")
+                            router.push("/")
                         },
                         onError: (error) => {
                             toast.error(error.error.message)

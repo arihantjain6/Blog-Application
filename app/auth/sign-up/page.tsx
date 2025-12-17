@@ -9,8 +9,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client";
 import { z } from "zod";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { startTransition, useTransition } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function SignUpPage() {
+    const [isPending, startTransition] = useTransition();
+    const router = useRouter();
     const form = useForm({
         resolver: zodResolver(signUpSchema),
         defaultValues: {
@@ -19,13 +25,25 @@ export default function SignUpPage() {
             password: "",
         },
     });
-    async function onSubmit(data: z.infer<typeof signUpSchema>) {
+    function onSubmit(data: z.infer<typeof signUpSchema>) {
+        startTransition(async () => {   
         await authClient.signUp.email({
             email: data.email,
             password: data.password,
             name: data.name,
+            fetchOptions: {
+                        onSuccess: () => {
+                            toast.success("Account created successfully")
+                            router.push("/")
+                        },
+                        onError: (error) => {
+                            toast.error(error.error.message)
+                        }
+                    }
         })
     }
+    )
+}
     return (
         <Card>
             <CardHeader>
@@ -76,7 +94,13 @@ export default function SignUpPage() {
                                 </Field>
                             )}
                         />
-                        <Button type="submit">Sign Up</Button>
+                        <Button disabled={isPending}>{isPending ? (
+                            <>
+                            <Loader2 className="size-4 animate-spin" />
+                            <span>Loading...</span></>
+                        ) : (
+                            <span>SignUp</span>
+                        )}</Button>
                     </FieldGroup>
                 </form>
             </CardContent>
