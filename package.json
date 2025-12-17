@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\" \"src/**/*.js\" \"src/**/*.jsx\"",
+    "format:fix": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\" \"src/**/*.js\" \"src/**/*.jsx\""
   },
   "dependencies": {
     "@convex-dev/better-auth": "^0.9.11",
@@ -25,6 +27,7 @@
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-hook-form": "^7.68.0",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "yup": "^1.7.1",
     "zod": "^4.1.13"
