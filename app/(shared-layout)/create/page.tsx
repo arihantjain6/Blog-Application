@@ -22,6 +22,7 @@ export default function CreateRoute() {
             defaultValues: {
                 title: "",
                 content: "",
+                image: undefined,
             },
         });
 
@@ -73,6 +74,30 @@ export default function CreateRoute() {
                                 </Field>
                             )}
                         />
+
+                        <Controller
+                            name="image"
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <Field>
+                                    <FieldLabel>Image</FieldLabel>
+                                    <Input aria-invalid={fieldState.invalid} placeholder="super cool title" 
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(event) => {
+                                        const file = event.target.files?.[0];
+                                        if (file) {
+                                            field.onChange(file);
+                                        }
+                                    }}
+                                    />
+                                    {fieldState.invalid && (
+                                        <FieldError errors={[fieldState.error]} />
+                                    )}
+                                </Field>
+                            )}
+                        />  
+                        
                         <Button disabled={isPending}>{isPending ? (
                             <>
                             <Loader2 className="size-4 animate-spin" />
