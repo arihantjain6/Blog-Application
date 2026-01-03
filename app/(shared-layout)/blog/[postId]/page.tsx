@@ -6,6 +6,7 @@ import { fetchQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { Separator } from "@/components/ui/separator";
+import { CommentSection } from "@/components/web/CommentSection";
 
 interface PostIdRouteProps {
     params: Promise<{
@@ -42,6 +43,8 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
                 <Separator className="my-4"/>
                 <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-wrap">{post.body}</p>
                 <Separator className="my-4"/>
+
+                <CommentSection/>
             </div>
         </div>
     )
