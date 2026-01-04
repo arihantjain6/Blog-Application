@@ -10,13 +10,12 @@ export const getCommentsByPostId = query({
     }
 })
 
-export  const createComment = mutation({
-    args:{
+export const createComment = mutation({
+    args: {
         body: v.string(),
         postId: v.id("posts"),
-        authorId: v.id("users"),
     },
-    handler: async(ctx, args)=>{
+    handler: async (ctx, args) => {
         const user = await authComponent.safeGetAuthUser(ctx);
         if (!user) {
             throw new ConvexError("User not authenticated");
@@ -24,8 +23,8 @@ export  const createComment = mutation({
         return await ctx.db.insert("comments", {
             body: args.body,
             postId: args.postId,
-            authorId: args.authorId,
-            authorName: user.name,
+            authorId: user._id,
+            authorName: user.name ?? "Anonymous",
         })
     }
 })

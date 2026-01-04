@@ -2,7 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { fetchQuery } from "convex/nextjs";
+import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { Separator } from "@/components/ui/separator";
@@ -18,6 +18,9 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
     const { postId } = await params;
 
     const post = await fetchQuery(api.posts.getPostById, { postId });
+    const preloadedComments = await preloadQuery(api.comments.getCommentsByPostId,{
+        postId: postId,
+    })
 
     if (!post) {
         return (
@@ -44,7 +47,7 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
                 <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-wrap">{post.body}</p>
                 <Separator className="my-4"/>
 
-                <CommentSection/>
+                <CommentSection preloadedComments={preloadedComments}/>
             </div>
         </div>
     )
