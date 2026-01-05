@@ -96,7 +96,7 @@ export function CommentSection(props: {
                                     <p className="font-semibold text-sm">
                                         {comment.authorName}
                                     </p>
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="<PostPresence roomId={post._id} userId={post.userId} />">
                                         {new Date(comment._creationTime).toLocaleDateString()}
                                     </p>
                                 </div>
