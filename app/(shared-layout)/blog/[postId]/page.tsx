@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { Separator } from "@/components/ui/separator";
 import { CommentSection } from "@/components/web/CommentSection";
+import { Metadata } from "next";
 
 interface PostIdRouteProps {
     params: Promise<{
@@ -14,13 +15,31 @@ interface PostIdRouteProps {
     }>;
 }
 
+export async function generateMetadata({ params }: PostIdRouteProps): Promise<Metadata> {
+    const { postId } = await params;
+    const post = await fetchQuery(api.posts.getPostById, { postId: postId })
+
+    if (!post) {
+        return {
+            title: "Post Not Found"
+        }
+    }
+    return {
+        title: post.title,
+        description: post.body,
+    }
+
+}
+
 export default async function PostIdRoute({ params }: PostIdRouteProps) {
     const { postId } = await params;
 
-    const post = await fetchQuery(api.posts.getPostById, { postId });
-    const preloadedComments = await preloadQuery(api.comments.getCommentsByPostId,{
-        postId: postId,
-    })
+    const [post, preloadedComments] = await Promise.all([
+        await fetchQuery(api.posts.getPostById, { postId: postId }),
+        await preloadQuery(api.comments.getCommentsByPostId, { postId: postId })
+    ])
+
+
 
     if (!post) {
         return (
@@ -38,16 +57,16 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
             </Link>
 
             <div className="relative w-full h-[400px] mb-8 rounded-xl overflow-hidden shadow-sm">
-                <Image src={post.imageUrl ?? "https://images.unsplash.com/photo-1761019646782-4bc46ba43fe9?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={post.title} fill className="object-cover hover:scale-105 transition-transform duration-500" unoptimized/>
+                <Image src={post.imageUrl ?? "https://images.unsplash.com/photo-1761019646782-4bc46ba43fe9?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt={post.title} fill className="object-cover hover:scale-105 transition-transform duration-500" unoptimized />
             </div>
             <div className="space-y-4 flex flex-col">
                 <h1 className="text-4xl font-bold tracking-tight text-foreground">{post.title}</h1>
                 <p className="text-muted-foreground text-sm">Posted on {new Date(post._creationTime).toLocaleDateString()}</p>
-                <Separator className="my-4"/>
+                <Separator className="my-4" />
                 <p className="text-lg leading-relaxed text-foreground/90 whitespace-pre-wrap">{post.body}</p>
-                <Separator className="my-4"/>
+                <Separator className="my-4" />
 
-                <CommentSection preloadedComments={preloadedComments}/>
+                <CommentSection preloadedComments={preloadedComments} />
             </div>
         </div>
     )
