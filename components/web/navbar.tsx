@@ -11,14 +11,14 @@ import { useRouter } from "next/navigation";
 import { SearchInput } from "./SearchInput";
 
 export default function Navbar() {
-    const { isAuthenticated, isLoading } = useConvexAuth(); 
+    const { isAuthenticated, isLoading } = useConvexAuth();
     const router = useRouter();
     return (
         <nav className="flex justify-between w-full py-5">
             <div className="flex items-center gap-8">
                 <Link href="/">
                     <h1 className="text-3xl font-bold   ">
-                        Next<span className="text-primary">Pro</span>
+                        Blog<span className="text-primary">Nest</span>
                     </h1>
                 </Link>
                 <div className="flex items-center gap-2">
@@ -32,29 +32,29 @@ export default function Navbar() {
                 <div className="hidden md:block mr-2">
                     <SearchInput />
                 </div>
-        {isLoading ? null : isAuthenticated ? (
-                <Button onClick={() => authClient.signOut({
-                    fetchOptions: {
-                        onSuccess: () => {
-                            toast.success("Logged out successfully")
-                            router.push("/")
-                        },
-                        onError: (error) => {
-                            toast.error(error.error.message)
+                {isLoading ? null : isAuthenticated ? (
+                    <Button onClick={() => authClient.signOut({
+                        fetchOptions: {
+                            onSuccess: () => {
+                                toast.success("Logged out successfully")
+                                router.push("/")
+                            },
+                            onError: (error) => {
+                                toast.error(error.error.message)
+                            }
                         }
-                    }
-                })}>
-                    Logout
-                </Button>
-            ): (
-                <>
-                    <Link className={buttonVariants({ variant: "default" } )} href="/auth/sign-up">Sign-up</Link>
-                <Link className={buttonVariants({ variant: "secondary" })} href="/auth/login">Login</Link>
-                </>
-            )}
+                    })}>
+                        Logout
+                    </Button>
+                ) : (
+                    <>
+                        <Link className={buttonVariants({ variant: "default" })} href="/auth/sign-up">Sign-up</Link>
+                        <Link className={buttonVariants({ variant: "secondary" })} href="/auth/login">Login</Link>
+                    </>
+                )}
 
-                
-            <ThemeToggle/>
+
+                <ThemeToggle />
             </div>
 
         </nav>
