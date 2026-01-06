@@ -13,5 +13,5 @@ export default defineSchema({
         body: v.string(),
         authorName: v.string(),
         authorId: v.string(),
-    })
+    }),
 })
