@@ -1,7 +1,6 @@
 
 import { buttonVariants } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
 import { api } from "@/convex/_generated/api"
 import { fetchQuery } from "convex/nextjs"
 import { ArrowRight, BookOpen, Sparkles } from "lucide-react"
@@ -9,8 +8,7 @@ import { Metadata } from "next"
 import { cacheLife, cacheTag } from "next/cache"
 import Image from "next/image"
 import Link from "next/link"
-import { connection } from "next/server"
-import { Suspense } from "react"
+
 
 // export const dynamic = "force-static";
 // export const revalidate = 30;
@@ -131,25 +129,4 @@ async function LoadBlogList() {
     )
 }
 
-function SkeletonLoadingUi() {
-    return (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[...Array(6)].map((_, i) => (
-                <Card key={i} className="pt-0 overflow-hidden">
-                    <Skeleton className="h-52 w-full rounded-none" />
-                    <div className="p-6 space-y-4">
-                        <Skeleton className="h-6 w-3/4" />
-                        <div className="space-y-2">
-                            <Skeleton className="h-4 w-full" />
-                            <Skeleton className="h-4 w-full" />
-                            <Skeleton className="h-4 w-2/3" />
-                        </div>
-                    </div>
-                    <div className="px-6 pb-6">
-                        <Skeleton className="h-10 w-full" />
-                    </div>
-                </Card>
-            ))}
-        </div>
-    )
-}
+

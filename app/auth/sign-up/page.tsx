@@ -11,7 +11,7 @@ import { authClient } from "@/lib/auth-client";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { startTransition, useTransition } from "react";
+import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
 
 export default function SignUpPage() {

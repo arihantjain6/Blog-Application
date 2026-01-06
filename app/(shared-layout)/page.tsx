@@ -1,6 +1,5 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
 import { ArrowRight, MessageSquare, PenLine, Search, Sparkles } from "lucide-react";
@@ -188,6 +187,7 @@ export default function Home() {
 }
 
 async function RecentPosts() {
+  "use cache";
   const posts = await fetchQuery(api.posts.getPosts);
   const recentPosts = posts?.slice(0, 3);
 
