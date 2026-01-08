@@ -6,10 +6,9 @@ import { api } from "@/convex/_generated/api"
 import { fetchQuery } from "convex/nextjs"
 import { ArrowRight, BookOpen, Sparkles } from "lucide-react"
 import { Metadata } from "next"
-// import { cacheLife, cacheTag } from "next/cache"
+import { cacheLife, cacheTag } from "next/cache"
 import Image from "next/image"
 import Link from "next/link"
-import { connection } from "next/server"
 import { Suspense } from "react"
 
 
@@ -60,10 +59,9 @@ export default function BlogPage() {
 }
 
 async function LoadBlogList() {
-    // "use cache";
-    // cacheLife("hours");
-    // cacheTag("blog");
-    await connection();
+    "use cache";
+    cacheLife("hours");
+    cacheTag("blog");
     const data = await fetchQuery(api.posts.getPosts)
 
     if (!data || data.length === 0) {
