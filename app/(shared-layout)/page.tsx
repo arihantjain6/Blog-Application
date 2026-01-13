@@ -3,8 +3,16 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
 import { ArrowRight, MessageSquare, PenLine, Search, Sparkles } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "BlogNest - Share Your Ideas With the World",
+  description: "Create beautiful blog posts, connect with readers, and build your audience. Start your writing journey today.",
+  category: "Home",
+  authors: [{ name: "BlogNest" }],
+};
 
 export default function Home() {
   return (

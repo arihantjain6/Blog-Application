@@ -1,4 +1,3 @@
-
 import { buttonVariants } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -18,10 +17,10 @@ import { Suspense } from "react"
 // 'auto' | 'force-static' | 'error' | 'force-dynamic'
 
 export const metadata: Metadata = {
-    title: "Blog | Next.js",
-    description: "Read our latest blog posts",
+    title: "Blog | BlogNest",
+    description: "Explore and read the latest blog posts from our community of writers.",
     category: "Blog",
-    authors: [{ name: "test-2" }]
+    authors: [{ name: "BlogNest" }],
 };
 
 export default function BlogPage() {

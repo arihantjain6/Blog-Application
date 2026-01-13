@@ -1,6 +1,14 @@
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: "Authentication | BlogNest",
+    description: "Sign in or create an account to start sharing your ideas on BlogNest.",
+    category: "Authentication",
+    authors: [{ name: "BlogNest" }],
+};
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -11,10 +19,10 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                     Go Back
                 </Link>
             </div>
-            <div className= "w-full max-w-md mx-auto">
+            <div className="w-full max-w-md mx-auto">
                 {children}
             </div>
         </div>
     )
 }
- 
+

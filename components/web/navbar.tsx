@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { useConvexAuth } from "convex/react";
@@ -16,8 +17,15 @@ export default function Navbar() {
     return (
         <nav className="flex justify-between w-full py-5">
             <div className="flex items-center gap-8">
-                <Link href="/">
-                    <h1 className="text-3xl font-bold   ">
+                <Link href="/" className="flex items-center gap-2">
+                    <Image
+                        src="/logo.png"
+                        alt="BlogNest Logo"
+                        width={40}
+                        height={40}
+                        className="rounded-lg"
+                    />
+                    <h1 className="text-3xl font-bold">
                         Blog<span className="text-primary">Nest</span>
                     </h1>
                 </Link>

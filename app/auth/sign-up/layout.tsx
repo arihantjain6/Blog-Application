@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Create Post | BlogNest",
-    description: "Share your thoughts with the world. Create a new blog post on BlogNest.",
-    category: "Create",
+    title: "Sign Up | BlogNest",
+    description: "Create a free BlogNest account and start your writing journey today.",
+    category: "Authentication",
     authors: [{ name: "BlogNest" }],
 };
 
-export default function CreateLayout({
+export default function SignUpLayout({
     children,
 }: {
     children: React.ReactNode;
